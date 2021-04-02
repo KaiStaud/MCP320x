@@ -6,14 +6,13 @@ The librarys provide the channel readout ranging from 0 = 0V to 0xFFE = VCC allo
 the library. 5V Supply can be used when connecting the ADC to 5V tolerant MCU SPI Pins.
 Both libraries support error handling by returning errors occurring during transmission.
 
-# C -How to use the library?
-## Setting up the MCUs peripherals:
+# Setting up the MCUs peripherals:
 Before using the libray the following peripherals need to be enabled:
 - One GPIO Pin attached to the ADC's CS Pin
 - A SPI Peripheral configured as Full-Duplex Master.
 - Optional: SPI RX DMA for streaming data between the ADC and CPU
 
-## Using the library in your project
+# C -How to use the library?
 After creating initializing a spi port in your project, use the Init-Function to initialize the ADC. The library supports sampling data
 via polling or DMA mode. If you are using the DMA functions, the callback functions needs to be implemented in your source code.
 ```
@@ -51,7 +50,7 @@ MCP320N_read_DMA(1, &adc);
 
 /* USER CODE END 4 */
 ```
-# C++: Using the library:
+# C++ -How to use the library?
 After creating a class instance, initialize the the instance. (Declaration and initialization are done individually, to prevent errors in RTOS enviroments)
 Returning samples can be done via Polling or DMA Mode:
 ```
