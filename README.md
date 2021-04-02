@@ -2,6 +2,8 @@
 The repository supplies a C and C++ Library for uning Microchip SAR-ADCs (MCP3202,MCP3204  etc.)
 with STM32 Microcontrollers. The libs are developed using STM32 HAL-Libraries, therefore an HAL-Setup is necessary
 for using them.
+The librarys provide the channel readout ranging from 0 = 0V to 0xFFE = VCC allowing different supply voltages to be easily used with 
+the library. 5V Supply can be used when connecting the ADC to 5V tolerant MCU SPI Pins.
 
 # C -How to use the library?
 ## Setting up the MCUs peripherals:
