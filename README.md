@@ -4,6 +4,7 @@ with STM32 Microcontrollers. The libs are developed using STM32 HAL-Libraries, t
 for using them.
 The librarys provide the channel readout ranging from 0 = 0V to 0xFFE = VCC allowing different supply voltages to be easily used with 
 the library. 5V Supply can be used when connecting the ADC to 5V tolerant MCU SPI Pins.
+Both libraries support error handling by returning errors occurring during transmission.
 
 # C -How to use the library?
 ## Setting up the MCUs peripherals:
@@ -44,5 +45,46 @@ MCP320N_read_DMA(1, &adc);
 
 /* USER CODE END 4 */
 ```
-# C++: Using the library
-Development in progress...
+# C++: Using the library:
+After creating a class instance, initialize the the instance. (Declaration and initialization are done individually, to prevent errors in RTOS enviroments)
+Returning samples can be done via Polling or DMA Mode:
+```
+/* USER CODE BEGIN Includes */
+#include "MCP320N/MCP3202.h"
+/* USER CODE END Includes */
+/* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi2;
+/* USER CODE BEGIN PV */
+MCP320X::MCP3202 adc;
+HAL_StatusTypeDef err;
+/* USER CODE END 0 */
+...
+int main(void)
+{
+...
+/* USER CODE BEGIN 2 */
+  adc.Init(MCP320X_CS_GPIO_Port, MCP320X_CS_Pin, &hspi2);
+  if(adc.Read(0) & (0xF000))
+  {
+  // Do some error handling
+  }
+  err = adc.Read_DMA(0); // change to any channel between 0-3
+  if(err != HAL_OK)
+  {
+  // Do some error handling
+  }
+  /* USER CODE END 2 */
+...
+}
+...
+/* USER CODE BEGIN 4 */
+void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+err = adc.Read_DMA(1);
+if(err != HAL_OK)
+{
+// Do error reporting
+}
+
+/* USER CODE END 4 */
+```
