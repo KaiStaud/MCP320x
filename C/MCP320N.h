@@ -19,9 +19,9 @@ typedef struct
 	uint16_t CS_Pin;
 }MCP320N;
 
-void MCP320N_read(uint8_t channel,MCP320N* adc);
+HAL_StatusTypeDef MCP320N_read(uint8_t channel,MCP320N* adc);
 
-void MCP320N_DMA_read(uint8_t channel,MCP320N* adc);
+HAL_StatusTypeDef MCP320N_DMA_read(uint8_t channel,MCP320N* adc);
 
 void MCP320N_init(MCP320N* adc,GPIO_TypeDef* cs_port, uint8_t cs_pin,SPI_HandleTypeDef* spi_controller);
 
