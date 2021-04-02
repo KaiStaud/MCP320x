@@ -31,8 +31,14 @@ int main(void)
 ...
 /* USER CODE BEGIN 2 */
   MCP320N_init(&adc, MCP320X_CS_GPIO_Port, MCP320X_CS_Pin, &hspi2);
-  MCP320N_read(0,&adc);
-  MCP320N_read_DMA(0, &adc); // change to any channel between 0-3
+  if(MCP320N_read(0,&adc) != HAL_OK)
+  {
+  // Handle timeout error
+  }
+  if(MCP320N_read_DMA(0, &adc) != HAL_OK) // change to any channel between 0-3
+  {
+  // Handle dma error
+  }
   /* USER CODE END 2 */
 ...
 }
